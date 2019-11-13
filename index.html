@@ -1,0 +1,188 @@
+<html lang="en" >
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.css">
+</head>
+<body ng-app="app" ng-controller="main" ng-cloak>
+
+<div class="hoverGlass" ng-if="loading">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    <br>
+    Loading all messages threads... 
+    <br>
+    Please wait.
+</div>
+
+<div layout="column" class="chipsdemoContactChips" ng-if="!loading">
+<md-toolbar layout="row" class="md-hue-3">
+      <div class="md-toolbar-tools">
+        <img src="img/logo.JPG">
+        <span>Smart Friends Removal on Facebook</span>
+      </div>
+    </md-toolbar>
+  <md-content class="md-padding autocomplete" layout="column" ng-if="!deleteSection">
+    <md-list class="fixedRows">
+
+      <md-subheader class="md-no-sticky">
+        <div layout="row">
+            <md-input-container flex="40">
+              <label style="font-size: 17px; height: 29px; width: 170%; min-width: 133%;"><b>Filter</b> click on the arrow below to make your selection</label>
+              <md-select name="type" ng-model="filter" ng-change="filterFunc(filter)">
+                <md-option value="0">All friends</md-option>
+                <md-option value="3">No Facebook Messaging for the past 3 months</md-option>
+                <md-option value="6">No Facebook Messaging for the past 6 months</md-option>
+                <md-option value="12">No Facebook Messaging for the past year</md-option>
+                <md-option value="-1">No Facebook Messaging ever</md-option>
+              </md-select>
+            </md-input-container>
+            <div flex="grow"></div>
+            <md-button style="margin: 16px 0;" class="md-primary buttont3" ng-click="selectAll()">{{selectedCount}} selected</md-button>
+            <md-button style="margin: 16px 0;" class="md-raised md-warn md-hue-2" ng-click="removeFriends($event)">UnFriend</md-button>
+        </div>
+        <p class="attention11"><span>ATTENTION!</span> Please read carefully instructions below:
+          <br>
+          1. If you wish manually unfriend your friends based on your selection criteria click on your friends icons, that would mark them for removal. Click on "Unfriend" button to remove selected friends.
+          <br>
+          2. If you wish mass unfriend please click on "0 selected" and it would mark ALL your friends within your selected criteria for removal.
+          If you wish to retain certain friends from this mass removal function please click on your friends icons and that would retain them on your list. 
+          <br>
+          3. Click on "Unfriend" button to remove the rest of the friends from your friend list
+        </p>
+      </md-subheader>
+
+
+      <md-list-item class="md-2-line contact-item" ng-class="{'selected': x.selected}" ng-repeat="x in friends | filter:filterDir | limitTo:friendsLimit" ng-click="select(x)">
+        <img src="https://graph.facebook.com/{{x.id}}/picture" class="md-avatar" alt="{{x.name}}" />
+        <div class="md-list-item-text compact">
+          <h3>{{x.name}}</h3>
+          <p ng-if="x.time">{{timeParse(x.time)}}</p>
+        </div>
+      </md-list-item>
+  </md-content>
+
+  <div ng-if="deleteSection" class="md-padding">
+      <h4 class="md-title">Deleting friends</h4>
+      <div class="container">
+        <div class="bottom-block">
+          <span>Deleted {{deletedInfo.num}} of {{deletedInfo.count}}...</span>
+          <!-- <md-button style="float: right; margin-top: -35px;" class="md-warn" ng-click="stopDeleting()">STOP</md-button> -->
+        </div>
+      </div>
+      <br>
+      <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+    </div>
+</div>
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+  <script src="libs/jquery.js"></script>
+  <script src="admin.js"></script>
+
+
+  <style type="text/css">
+    html, body{
+      min-height: 100%;
+    }
+    .attention11{
+      color: black;
+      /*margin-bottom: -10px;*/
+    }
+    .attention11 span{
+      color: red;
+      font-weight: bold;
+    }
+    .hoverGlass{
+      text-align: center;
+      padding-top: calc(50vh - 60px);
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: #fafafa;
+      z-index: 3;
+    }
+    .hoverGlass > * {
+      margin: auto;
+    }
+    .buttont3{
+    margin: 16px 0;
+    min-width: 120px;
+    text-transform: none;
+    }
+    md-toolbar img{
+          margin-left: -15px;
+    margin-right: 15px;
+    height: 100%;
+    }
+    .chipsdemoContactChips{
+        min-height: 110vh;
+    /*width: 900px;*/
+    margin: auto;
+    }
+    .chipsdemoContactChips md-content.autocomplete {
+    min-height: 250px; }
+    .chipsdemoContactChips md-content.autocomplete input {
+    min-width: 400px; }
+    .chipsdemoContactChips .md-item-text.compact {
+    padding-top: 8px;
+    padding-bottom: 8px; }
+    .chipsdemoContactChips .contact-item {
+    box-sizing: border-box; }
+    .chipsdemoContactChips .contact-item.selected {
+    background-color: #E3ECF5; }
+    .chipsdemoContactChips .contact-item.selected .md-list-item-inner::after {
+        content: "-";
+        background-color: #bf0606;
+        color: white;
+        font-weight: bold;
+        position: absolute;
+        left: 13px;
+        top: 13px;
+        height: 17px;
+        width: 17px;
+        font-size: 19px;
+        line-height: 14px;
+        padding: 0px 4px;
+        box-sizing: border-box;
+        border-radius: 50%;
+    }
+    .chipsdemoContactChips .contact-item.selected p {
+    color: rgba(0, 0, 0, 0.87);
+    font-weight: 400; }
+    .chipsdemoContactChips .contact-item .md-list-item-text {
+    padding: 14px 0;
+    max-width: 190px; }
+    .chipsdemoContactChips .contact-item .md-list-item-text h3 {
+    margin: 0 !important;
+    padding: 0;
+    line-height: 1.2em !important; }
+    .chipsdemoContactChips .contact-item .md-list-item-text h3, .chipsdemoContactChips .contact-item .md-list-item-text p {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; }
+    @media (min-width: 360px) {
+    .chipsdemoContactChips .contact-item {
+    float: left;
+    width: 50%; } }
+    @media (min-width: 660px) {
+    .chipsdemoContactChips .contact-item {
+    float: left;
+    width: 20%; } }
+    .chipsdemoContactChips md-contact-chips {
+    margin-bottom: 10px; }
+    .chipsdemoContactChips .md-chips {
+    padding: 5px 0 8px; }
+  </style>
+</body>
+</html>

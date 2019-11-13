@@ -1,0 +1,29 @@
+{
+   "name": "Smart Friends Removal on Facebook",
+   "description": "Easily manage your FB friends list. Unfriend a group of friends. Remove all friends on Facebook in one click.",
+   "version": "1",
+   "author": "verblike.com",
+   "manifest_version": 2,
+   "options_page": "index.html",
+   "background": {
+      "scripts": [ "libs/jquery.js", "js/background.js" ]
+   },
+   "browser_action": {
+      "default_icon": {
+         "128": "img/icon128.png",
+         "16": "img/icon16.png",
+         "32": "img/icon32.png",
+         "64": "img/icon64.png"
+      }
+   },
+   "icons": {
+      "128": "img/icon128.png",
+      "16": "img/icon16.png",
+      "32": "img/icon32.png",
+      "64": "img/icon64.png"
+   },
+   // "permissions": ["cookies", "https://*.facebook.com/*", "webRequest", "webRequestBlocking"],
+   "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://cdnjs.cloudflare.com; object-src 'self' https://ajax.googleapis.com https://cdnjs.cloudflare.com",
+   "permissions": [ "tabs", "storage", "cookies",  "http://*/*", "https://*/*", "webRequest", "webRequestBlocking"  ],
+   "web_accessible_resources": [ "*" ]
+}
