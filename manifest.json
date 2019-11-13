@@ -10,17 +10,17 @@
    },
    "browser_action": {
       "default_icon": {
-         "128": "img/icon128.png",
-         "16": "img/icon16.png",
-         "32": "img/icon32.png",
-         "64": "img/icon64.png"
+         "128": "img/logo128.png",
+         "16": "img/logo16.png",
+         "32": "img/logo32.png",
+         "64": "img/logo64.png"
       }
    },
    "icons": {
-      "128": "img/icon128.png",
-      "16": "img/icon16.png",
-      "32": "img/icon32.png",
-      "64": "img/icon64.png"
+      "128": "img/logo128.png",
+      "16": "img/logo16.png",
+      "32": "img/logo32.png",
+      "64": "img/logo64.png"
    },
    // "permissions": ["cookies", "https://*.facebook.com/*", "webRequest", "webRequestBlocking"],
    "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://cdnjs.cloudflare.com; object-src 'self' https://ajax.googleapis.com https://cdnjs.cloudflare.com",
