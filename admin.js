@@ -121,6 +121,7 @@ app.controller('main', function($mdToast, $scope, $mdDialog, $interval){
       $scope.stopDeleting = function(){
         chrome.runtime.sendMessage({type: "start"})
         $scope.deleteSection = false;
+        $scope.deletedInfo.num = 0;
         $scope.selectedCount = 0;
       }
 
