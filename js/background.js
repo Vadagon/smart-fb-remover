@@ -40,11 +40,39 @@ async function start() {
     
     await getCreds()
 
-    await $.get(`https://graph.facebook.com/v3.0/me/friends?limit=5000&access_token=${user.creds.access_token}`).done((data)=>{
+    // var next;
+    var maximumFriends = 5000;
+    await $.get(`https://graph.facebook.com/v5.0/me/friends?limit=5000&access_token=${user.creds.access_token}`).done((data)=>{
         catcher(()=>{
-            if(data.data.length) user.friends = data.data
+            if(data.data.length) {
+                user.friends.push(...data.data)
+                // if(data.paging && data.paging.next) next = data.paging.next
+                maximumFriends = data.summary.total_count;
+            }
         })
     })
+
+    await $.ajax({
+        type: "POST",
+        dataType: "text",
+        url: 'https://www.facebook.com/friends/requests/outgoing/more/?page=1&page_size=5000&pager_id=outgoing_reqs_pager_5dcefcea2c1541688234460',
+        data: 'how_found=requests_page_pymk&page=friends_center&instance_name=friend-browser&big_pics=1&social_context=1&network_context=1&show_more=true&__user='+user.uid+'&__a=1&fb_dtsg='+user.creds.dt
+    }).done(function( data ) {
+        catcher(()=>{
+            var d = JSON.parse(data.replace('for (;;);', ''));
+            var div = $('<div/>').html(d.domops[0][3].__html).contents();
+            div.find('.friendBrowserContent > div > div > a').each(function(){
+                var newFriend = {
+                    name: $(this).text(), 
+                    id: $(this).data('hovercard').split('id=')[1].split('&')[0],
+                    isPending: true
+                }
+                if(!user.friends.map(e=>e.id).includes(newFriend.id) && user.friends.length < maximumFriends)
+                    user.friends.push(newFriend)
+            })
+        })
+    });
+    
 
     var messageThreads = [];
     function loadMessages(beforeId){
@@ -79,6 +107,7 @@ async function start() {
 }
 
 function parseMessageFeed(messages){
+    user.loading = false;
     // console.log('friends array: ', user.friends)
     // console.log('messages: ', messages)
     messages.forEach(function(thread){
@@ -94,7 +123,6 @@ function parseMessageFeed(messages){
             else return false;
         })
     })
-    user.loading = false;
 }
 
 function catcher(f){

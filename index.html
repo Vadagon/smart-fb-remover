@@ -26,7 +26,7 @@
       <md-subheader class="md-no-sticky">
         <div layout="row">
             <md-input-container flex="40">
-              <label style="font-size: 17px; height: 29px; width: 170%; min-width: 133%;"><b>Filter</b> click on the arrow below to make your selection</label>
+              <label style="font-size: 18px; height: 29px; width: 170%; min-width: 133%; font-weight: bold; color: red;"><b>Filter</b> click on the arrow below to make your selection</label>
               <md-select name="type" ng-model="filter" ng-change="filterFunc(filter)">
                 <md-option value="0">All friends</md-option>
                 <md-option value="3">No Facebook Messaging for the past 3 months</md-option>
@@ -43,7 +43,8 @@
           <br>
           1. If you wish manually unfriend your friends based on your selection criteria click on your friends icons, that would mark them for removal. Click on "Unfriend" button to remove selected friends.
           <br>
-          2. If you wish mass unfriend please click on "0 selected" and it would mark ALL your friends within your selected criteria for removal.
+          2. If you wish mass unfriend please click on the button located on the left from the red " Unfriend" button called "0 selected". It would mark ALL your friends within your selected criteria for removal. Keep in mind if you click on the "0 selected" button again it will remove the selection and you would need to start all over again.
+          
           If you wish to retain certain friends from this mass removal function please click on your friends icons and that would retain them on your list. Click on "Unfriend" button to remove the rest of the friends from your friend list
         </p>
       </md-subheader>
