@@ -39,14 +39,17 @@
             <md-button style="margin: 16px 0;" class="md-primary buttont3" ng-click="selectAll()">{{selectedCount}} selected</md-button>
             <md-button style="margin: 16px 0;" class="md-raised md-warn md-hue-2" ng-click="removeFriends($event)">UnFriend</md-button>
         </div>
-        <p class="attention11"><span>ATTENTION!</span> Please read carefully instructions below:
-          <br>
-          1. If you wish manually unfriend your friends based on your selection criteria click on your friends icons, that would mark them for removal. Click on "Unfriend" button to remove selected friends.
-          <br>
-          2. If you wish mass unfriend please click on the button located on the left from the red " Unfriend" button called "0 selected". It would mark ALL your friends within your selected criteria for removal. Keep in mind if you click on the "0 selected" button again it will remove the selection and you would need to start all over again.
-          
-          If you wish to retain certain friends from this mass removal function please click on your friends icons and that would retain them on your list. Click on "Unfriend" button to remove the rest of the friends from your friend list
-        </p>
+        <div class="attention11">
+          <p style="font-size: 21px;"><b class="text-red">ATTENTION!</b> Please read carefully instructions below:</p>
+          <p>
+            1. If you wish to manually unfriend your friends based on your selection criteria click on your friends icons, that would mark them for removal. Click on "<span class="text-red">Unfriend</span>" button to remove selected friends.
+          </p>
+          <p>
+            2. If you wish to mass unfriend please click on the button located on the left from the red "Unfriend" button called "<span class="text-blue">0 selected</span>" It would mark <span class="text-blue">ALL</span> your friends within your selected criteria for removal. Keep in mind if you click on the "<span class="text-blue">0 selected</span>" button again it will remove the selection and you would need to start all over again. If you wish to retain certain friends from this mass removal function please click on your friends icons and that would retain them on your list. Click on "<span class="text-red">Unfriend</span>" button to remove the rest of the friends from your friend list.
+            <br>
+            If you wish to retain certain friends from this mass removal function please click on your friends icons and that would retain them on your list. Click on "Unfriend" button to remove the rest of the friends from your friend list.
+          </p>
+        </div>
       </md-subheader>
 
 
@@ -92,13 +95,15 @@
     html, body{
       min-height: 100%;
     }
+    .text-red{
+      color: red;
+    }
+    .text-blue{
+      color: blue;
+    }
     .attention11{
       color: black;
       /*margin-bottom: -10px;*/
-    }
-    .attention11 span{
-      color: red;
-      font-weight: bold;
     }
     .hoverGlass{
       text-align: center;
