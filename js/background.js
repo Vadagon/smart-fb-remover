@@ -37,6 +37,7 @@ function getCreds(cb){
 
 async function start() {
     user.loading = true;
+    user.friends = [];
     
     await getCreds()
 
