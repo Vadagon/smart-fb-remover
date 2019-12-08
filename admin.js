@@ -70,7 +70,7 @@ app.controller('main', function($mdToast, $scope, $mdDialog, $interval){
         // Appending dialog to document.body to cover sidenav in docs app
         var confirm = $mdDialog.confirm()
               .title('Would you like to unfriend selected friends?')
-              .textContent('It will start slowly unfriending one by one.')
+              .textContent('You will not be able to undo your changes.')
               .targetEvent(ev)
               .ok('Yes')
               .cancel('No');
