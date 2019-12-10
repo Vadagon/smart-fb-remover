@@ -36,6 +36,7 @@ app.controller('main', function($mdToast, $scope, $mdDialog, $interval){
       return !x.hide;
     }
     $scope.filterFunc = function(e){
+        $scope.filter = e;
         console.log($scope.filter, e)
         $scope.friends.forEach(x=>{
             x.selected = false;
@@ -66,7 +67,10 @@ app.controller('main', function($mdToast, $scope, $mdDialog, $interval){
         let date = moment(new Date( e ), "YYYY-MM-DD");
         return date.fromNow();
     }
+    var prevFilter;
     $scope.removeFriends = function(ev) {
+      console.log($scope.filter)
+      prevFilter = $scope.filter
         // Appending dialog to document.body to cover sidenav in docs app
         var confirm = $mdDialog.confirm()
               .title('Would you like to unfriend selected friends?')
@@ -87,6 +91,7 @@ app.controller('main', function($mdToast, $scope, $mdDialog, $interval){
       }
 
       $scope.startDeleting = async function(){
+        console.log($scope.filter)
         $scope.deletedInfo.count = $scope.friends.filter(e=>!e.hide&&e.selected).length
         $scope.deleteSection = true;
 

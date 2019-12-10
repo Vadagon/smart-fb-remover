@@ -1,7 +1,7 @@
 {
    "name": "Smart Unfriender™ on Facebook",
    "description": "Easily manage your FB friends list. Unfriend a group of friends. Remove all friends on Facebook in one click.",
-   "version": "2",
+   "version": "3",
    "author": "verblike.com",
    "manifest_version": 2,
    "options_page": "index.html",
