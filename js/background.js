@@ -144,8 +144,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             sendResponse(user)
         });
     }
-    // if(request.type == 'start')
-    //     start()
+    if(request.type == 'start')
+        start()
     
     return true;
 });
