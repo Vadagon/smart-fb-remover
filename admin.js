@@ -1,3 +1,5 @@
+// https://us-central1-margarita-1.cloudfunctions.net/DBinsert/isMember?email=mazukis@gmail.com
+
 var app = angular.module('app', ['ngMaterial', 'ngMessages']);
 app.controller('main', function($mdToast, $scope, $mdDialog, $interval){
 
@@ -5,11 +7,30 @@ app.controller('main', function($mdToast, $scope, $mdDialog, $interval){
     $scope.deleteSection = false;
     $scope.selectedCount = 0;
     $scope.filter = "0";
+    $scope.login = {
+      email: '',
+      loading: false,
+      logged: true,
+      func: function(){
+        $scope.login.loading = true;
+        // mazukis@gmail.com
+        $.get('https://us-central1-margarita-1.cloudfunctions.net/DBinsert/isMember?email='+$scope.login.email).done((e)=>{
+          if(e && e.result){
+            $scope.login.logged = true;
+            chrome.runtime.sendMessage({type: "loggedTrue"})
+          }
+          console.log(e)
+        }).always(()=>{
+          $scope.login.loading = false;
+        })
+      }
+    }
     // $scope.filtered = [];
     function init(){
       chrome.runtime.sendMessage({type: "data"}, function(response) {
         $scope.friends = response.friends;
         $scope.loading = response.loading;
+        $scope.login.logged = response.logged;
         if($scope.loading){
           setTimeout(()=>{
             init()

@@ -6,6 +6,8 @@
 </head>
 <body ng-app="app" ng-controller="main" ng-cloak>
 
+
+
 <div class="hoverGlass" ng-if="loading">
     <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     <br>
@@ -13,6 +15,19 @@
     <br>
     Please wait.
 </div>
+
+<div class="hoverGlass hoverGlassEmail" ng-if="!login.logged">
+  <h2>Enter your email address to continue</h2>
+  <md-content layout-padding>
+    <md-input-container>
+        <label>Email</label>
+        <input type="email" ng-model="login.email">
+    </md-input-container>
+    <md-button ng-click="login.func()" class="md-raised md-primary"><span ng-if="!login.loading">Submit</span><md-progress-circular ng-if="login.loading" class="md-warn" md-diameter="20px"></md-progress-circular></md-button>
+  </md-content>
+</div>
+
+
 
 <div layout="column" class="chipsdemoContactChips" ng-if="!loading">
 <md-toolbar layout="row" class="md-hue-3">
@@ -124,6 +139,18 @@
       z-index: 3;
     }
     .hoverGlass > * {
+      margin: auto;
+    }
+    .hoverGlassEmail md-input-container{
+      margin: 0;
+      margin-bottom: -26px;
+      text-align: left;
+    }
+    .hoverGlassEmail button{
+      padding: 0;
+      margin: 0;
+    }
+    .hoverGlassEmail md-progress-circular{
       margin: auto;
     }
     .buttont3{

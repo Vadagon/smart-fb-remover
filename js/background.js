@@ -2,6 +2,7 @@ var user = {
     uid: false,
     creds: false,
     loading: true,
+    logged: false,
     friends: []
 };
 
@@ -146,7 +147,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }
     if(request.type == 'start')
         start()
-    
+    if(request.type == 'loggedTrue')
+        user.logged = true;
+
     return true;
 });
 
