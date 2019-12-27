@@ -18,10 +18,15 @@ app.controller('main', function($mdToast, $scope, $mdDialog, $interval){
           if(e && e.result){
             $scope.login.logged = true;
             chrome.runtime.sendMessage({type: "loggedTrue"})
+          }else{
+            $('.enterError').show()
+            $scope.login.loading = false;
           }
+          $scope.login.loading = false;
           console.log(e)
         }).always(()=>{
           $scope.login.loading = false;
+          $scope.$apply()
         })
       }
     }
