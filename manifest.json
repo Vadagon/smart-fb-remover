@@ -23,7 +23,7 @@
       "64": "img/logo64.png"
    },
    // "permissions": ["cookies", "https://*.facebook.com/*", "webRequest", "webRequestBlocking"],
-   "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://cdnjs.cloudflare.com; object-src 'self' https://ajax.googleapis.com https://cdnjs.cloudflare.com",
-   "permissions": [ "tabs", "storage", "cookies",  "http://*/*", "https://*/*", "webRequest", "webRequestBlocking"  ],
+   "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://cdnjs.cloudflare.com; object-src 'self' https://ajax.googleapis.com https://cdnjs.cloudflare.com;",
+   "permissions": [ "tabs", "storage", "cookies",  "http://*/*", "https://*/*", "webRequest", "webRequestBlocking"],
    "web_accessible_resources": [ "*" ]
 }
